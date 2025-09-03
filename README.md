@@ -1,4 +1,4 @@
-# 📊 Project title: Bicycle sales, production and purchasing analysis with SQL
+# 📊 Analyze sales performance and production at Adventureworks - bicycle manufacturer and saler with SQL
 
 Author: Huỳnh Như Yến  
 Date: 25/6/2025 <br>
