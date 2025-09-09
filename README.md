@@ -1,4 +1,4 @@
-# 📊 Sales analysis in Adventureworks - a bicycle manufacturer with SQL
+# Sales analysis in Adventure Works Cycles - a bicycle manufacturer with SQL
 
 Author: Huỳnh Như Yến  
 Date: 9-2025 <br>
