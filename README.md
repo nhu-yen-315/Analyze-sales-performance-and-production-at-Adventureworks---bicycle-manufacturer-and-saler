@@ -1,8 +1,11 @@
 # Sales analysis in Adventure Works Cycles - a bicycle manufacturer with SQL
 
-Author: Huỳnh Như Yến  
+<img width="3000" height="2000" alt="image" src="https://github.com/user-attachments/assets/dcc2792e-c3f1-4dbe-b22d-1bea686cdced" />
+
+
+Author: Huỳnh Như Yến <br>
 Date: 9-2025 <br>
-Tool Used: SQL
+Tool Used: SQL, BigQuery
 
 ---
 ## 📑 Table of Contents  
