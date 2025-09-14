@@ -15,6 +15,15 @@ Tool Used: SQL
 ## 1. 📌 Background & Overview
 ### 📖 What is this project about? 
 
+**Adventure Works Cycles** is a **bicycle manufacturing** company. In addition to **finished bicycles**, the company also sells **individual bicycle components**, **sport clothes and equipments**. This project analyzes **sales performance** over the period from **2012 to 2013** using **SQL**.
+
+The analysis aims to address the following **key business questions**:
+
+- How did different **product subcategories** perform in terms of sales?
+
+- What was the sales performance across various **sales territories**?
+
+- What insights can be drawn about **customer retention**?
 
 ### 👤 Who is this project for?  
 - Sales managers 
@@ -99,14 +108,17 @@ ORDER BY YoY_gr DESC;
 </p>
 
 #### 🔎 Insights:
+- **Clothing subcategories** have experienced the **rapid growth** in quantities sold. **Socks** have the **most impressive** growth rate at over **420%** while **socks and jerseys** rank **second and third** at over **263% and 183%** respectively. That indicates that **clothings** are **potential products** and require **further investments** in the future.
+- In contrast, the sales of **bicyle components** such as **locks, forks and wheels** have **dropped significantly**.
+- Notably, **wheels** were a **key subcategory** in **2012**, with **3,802 units** sold. However, sales **dropped sharply** to just **1,471 units** in 2013, highlighting a **substantial decrease in demand**.
 
-#### ⚒ Query 3: Which territories have the highest sales based on quantities sold?
+#### ⚒ Query 3: Which territories have contributed most to total revenue?
 ```sql
 WITH sales_quantity AS     
     (SELECT 
             FORMAT_DATE('%Y', sales.ModifiedDate) AS year,
             territory.Name AS territory,
-            SUM(OrderQty) AS item_qty
+            ROUND(SUM(LineTotal), 2) AS revenue
     FROM `adventureworks2019.Sales.SalesOrderDetail` AS sales
     LEFT JOIN `adventureworks2019.Sales.SalesOrderHeader`AS header 
         ON sales.SalesOrderID = header.SalesOrderID
@@ -117,17 +129,21 @@ WITH sales_quantity AS
 
 SELECT * FROM
     (SELECT *,
-            DENSE_RANK() OVER(PARTITION BY year ORDER BY item_qty DESC) AS ranked
+            DENSE_RANK() OVER(PARTITION BY year ORDER BY revenue DESC) AS ranked
     FROM sales_quantity)
 WHERE ranked IN (1,2,3);
 ```
 #### 👉🏻 Results:
 <p align='center'>
-  <img width="511" height="190" alt="image" src="https://github.com/user-attachments/assets/4187f71c-2b3b-482a-afea-8ae3b6d66522" />
+  <img width="709" height="187" alt="image" src="https://github.com/user-attachments/assets/342702a4-cacc-435e-bb53-a46125339b66" />
 </p>
 
 #### 🔎 Insights:
-
+- **Southwest, Canada and Northwest** have **consistently contributed most** to total revenue during 2012 and 2013. All three territories have experienced **increase in revenues**.
+- **Southwest** is the **most important** territory, contributing **$8.2M and $9.1M** in 2012 and 2013 respectively.
+- **Canada** contributed **$5.8M** revenue in 2012 and then dropped to **$6.2M** in the following year.
+- Similarly, **Northwest** generated **$4.7M and $6M** in two years.
+  
 #### ⚒ Query 4: Which territories have the fastest YoY growth rates based on quantities sold?
 
 ```sql
@@ -160,6 +176,11 @@ ORDER BY YoY_gr DESC;
 
 #### 🔎 Insights:
 
+- **All territories** experience **positive year-over-year growth** in terms of quantities sold with the lowest rate of 21.2%.
+- Starting as a **young market** in 2012, **Germany** has the **most rapid** YoY growth rate at **3169%**, indicating that the **expansion strategy** to this market is **effective**.
+- **Australia, United Kingdom and France** which are relatively young markets also see surge in sales at **960%, 243% and 220%**.
+- Other **mature markets** have more **modest** growth rates ranging from **21% to 100%**.
+  
 #### ⚒ Query 5: What subcategory has the highest sales based on quantities sold by each territory?
 ```sql
 WITH sales_quantity AS    
@@ -193,6 +214,11 @@ WHERE ranked = 1;
 
 #### 🔎 Insights:
 
+- **Finished bikes** are the **most important subcategories** in **most markets**, except for **Australia**.
+- **Road bikes** are **best-sellers** in **7 territories**.
+- The young market with the strongest growth **Germany** favors **touring bikes** most, while **Australia**, the second fastest growth market, favors **tires and tubes**.
+- **Mountain bikes** are best-selling in **Northwest** which is one of the most important territories in terms of revenue.
+
 #### ⚒ Query 6: How much money is spent on 'Seasonal' discounts by subcategory each year?
 ```sql
 SELECT 
@@ -222,7 +248,9 @@ GROUP BY year, subcategory;
 </p>
 
 #### 🔎 Insights:
-
+- **Seasonal discount** only applied to **Helmets** subcategory.
+- The discount cost doubled from **$827** to **$1606** during the period.
+  
 #### ⚒ Query 7: Customer retention analysis: Customer count and average lifetime revenue per customer by cohort
 ```sql
 WITH info AS
@@ -269,8 +297,18 @@ ORDER BY join_month, month_diff
 #### 🔎 Insights:
 <p align='center'>
   <img width="1296" height="350" alt="image" src="https://github.com/user-attachments/assets/57aa05d9-c01e-4fb9-9de9-721c05ae3e81" />
-  <br>
-  <img width="1293" height="352" alt="image" src="https://github.com/user-attachments/assets/66394abd-e423-4e53-9c67-e49591323aa1" />
-
 </p>
+
+- The **second half** of 2013 attracted approximately **three times more customers** than the first half. A likely explanation is the presence of **major holidays**—such as **Halloween, Christmas, and New Year**— which typically drive **higher consumer activity**.
+- Interestingly, **purchase behavior** **differs** between the **January–June** and **July–December customer cohorts**. **Customers** acquired in the **first half** of the year tend to **repurchase after two months**, whereas those from the **second half** show a **higher purchase frequency**, often **repurchasing monthly**.
+
+<P align='center'>
+  <img width="1293" height="352" alt="image" src="https://github.com/user-attachments/assets/66394abd-e423-4e53-9c67-e49591323aa1" />
+</p>
+
+- Even though the number of new customers in the **first six months** is relatively low, the **average spendings** are **high**.
+- **New customers** acquired in **January, February and March** have the **highest spendings** ranging from **$5000** to **$8000**.
+
+## 4. 💡 Recommendations
+- Keep expanding market in Germany
 
