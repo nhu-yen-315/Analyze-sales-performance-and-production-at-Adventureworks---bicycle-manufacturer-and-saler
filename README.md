@@ -32,6 +32,88 @@ The analysis aims to address the following **key business questions**:
 
 ---
 ## 2. 📂 Dataset Description 
+#### Data source
+The database covers various activities - manufacturing, sales, purchasing, product management, contact management, and human resources - in a bicycle manufacturer. It is published in BigQuery. 
+
+How to access to the database:
+- Open Google BigQuery: Go to https://console.cloud.google.com/bigquery and sign in with your Google account.
+- Create a new project: Use the project dropdown on the top left to select or create a GCP project where you'll run your queries.
+- Search for the dataset: In the search bar, enter: adventureworks2019.
+- Select the dataset: Locate the dataset under project ID: bigquery-public-data.
+- View tables: Expand bigquery-public-data > adventureworks2019 to see the available tables (e.g., person, sales, production, etc.).
+- Start querying: Click “Compose New Query”.
+
+#### Data schema
+The project uses following tables:
+
+<details>
+  <summary>Sales.SalesOrderDetail</summary>
+
+| Name                 | Data Type        | Description / Attributes                                                                                                                                              |
+|----------------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SalesOrderID         | int              | **Primary key**. Foreign key to `SalesOrderHeader.SalesOrderID`. One unique incremental number per product sold.                                                      |
+| SalesOrderDetailID   | int              | **Identity / Auto-increment column**. Unique ID for each detail row in the order.                                                                                      |
+| CarrierTrackingNumber| nvarchar(25)     | Shipment tracking number supplied by the shipper.                                                                                                                      |
+| OrderQty             | smallint         | Quantity ordered per product.                                                                                                                                          |
+| ProductID            | int              | Product sold to customer. Foreign key to `Product.ProductID`.                                                                                                          |
+| SpecialOfferID       | int              | Promotional code applied. Foreign key to `SpecialOffer.SpecialOfferID`.                                                                                                |
+| UnitPrice            | money            | Selling price of a single product.                                                                                                                                     |
+| UnitPriceDiscount    | money            | Discount amount per unit. **Default:** `0.0`.                                                                                                                           |
+| LineTotal            | numeric(38, 6)   | Per-product subtotal. **Computed as:** `UnitPrice * (1 - UnitPriceDiscount) * OrderQty`. <br> **Full formula:** `ISNULL((UnitPrice * (1 - UnitPriceDiscount) * OrderQty), 0.0)` |
+| rowguid              | uniqueidentifier | Unique identifier for the row. Used to support merge replication. <br> **Default:** `NEWID()`                                                                          |
+| ModifiedDate         | datetime         | Date and time the record was last updated. <br> **Default:** `GETDATE()`                                                                                               |
+</details>
+
+<details>
+  <summary>Sales.SalesOrderHeader </summary>
+
+| Name         | Data Type | Description / Attributes                                                                 |
+|--------------|-----------|-------------------------------------------------------------------------------------------|
+| SalesOrderID | int       | **Primary key**. Identity / Auto-increment column.                                       |
+| CustomerID   | int       | Customer identification number. Foreign key to `Customer.BusinessEntityID`.             |
+| TerritoryID  | int       | Territory in which the sale was made. Foreign key to `SalesTerritory.SalesTerritoryID`. |
+</details>
+
+<details>
+<summary>Sales.SalesTerritory </summary>
+
+| Name        | Data Type     | Description / Attributes                                                  |
+|-------------|---------------|---------------------------------------------------------------------------|
+| TerritoryID | int           | **Primary key** for SalesTerritory records. Identity / Auto-increment column. |
+| Name        | nvarchar(50)  | Sales territory description.                                              |
+</details>
+
+
+<details>
+<summary>Production.Product</summary>
+  
+| Name               | Data Type     | Description / Attributes                                                                 |
+|--------------------|---------------|------------------------------------------------------------------------------------------|
+| ProductID          | int           | **Primary key** for Product records. Identity / Auto-increment column.                   |
+| Name               | nvarchar(50)  | Name of the product.                                                                     |
+| ProductNumber      | nvarchar(25)  | Unique product identification number.                                                    |
+| ProductSubcategoryID | int         | Product subcategory ID. Foreign key to `ProductSubCategory.ProductSubCategoryID`.        |  
+</details>
+
+<details> 
+<summary>Production.ProductSubcategory </summary>
+
+| Name               | Data Type     | Description / Attributes                                                                 |
+|--------------------|---------------|------------------------------------------------------------------------------------------|
+| ProductSubcategoryID | int         | **Primary key** for ProductSubcategory records. Identity / Auto-increment column.        |
+| Name               | nvarchar(50)  | Subcategory description.                                                                 |
+</details>
+  
+
+<details>
+<summary>Sales.SpecialOffer</summary>
+  
+| Name           | Data Type      | Description / Attributes                                                             |
+|----------------|----------------|--------------------------------------------------------------------------------------|
+| SpecialOfferID | int            | **Primary key** for SpecialOffer records. Identity / Auto-increment column.         |
+| Type           | nvarchar(50)   | Discount type category.                                                             |
+
+</details>
 
 ---
 ## 3. 🔎 Queries & Insights
@@ -235,7 +317,8 @@ FROM
           ON sales.ProductID = product.ProductID
       LEFT JOIN `adventureworks2019.Production.ProductSubcategory` AS subcat
           ON CAST(product.ProductSubcategoryID AS int) = subcat.ProductSubcategoryID
-      LEFT JOIN `adventureworks2019.Sales.SpecialOffer` AS offer
+      LEFT JOIN `adventureworks2019.
+      ` AS offer
           ON sales.SpecialOfferID = offer.SpecialOfferID
     WHERE LOWER(type) LIKE '%seasonal discount%'
     AND FORMAT_DATE('%Y', sales.ModifiedDate) IN ('2012','2013')
