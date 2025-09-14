@@ -310,5 +310,19 @@ ORDER BY join_month, month_diff
 - **New customers** acquired in **January, February and March** have the **highest spendings** ranging from **$5000** to **$8000**.
 
 ## 4. 💡 Recommendations
-- Keep expanding market in Germany
 
+- **Market expansion**
+  + The company should continue to **expand operations** in **young and fast-growing markets** like **Germany (3169% yoy growth rate) , Australia (960%), United Kingdom (243%) and France (220%)**.
+  + **Touring bikes** are the **key products** to **Germany**. The company should prepare the **manufacturing capacity** for touring bikes to meet huge demand in German market. 
+  + **Tires and tubes** are **best-selling** products in **Australia** while both **United Kingdom and France** prefer **road bikes** most.
+    
+- **Product diversification**
+  + **Clothing** subcategories like **socks, shorts and jerseys** had **low sales in 2012**; however, they experienced **surge in sales** in 2013, indicating clothings are the **new potential product lines** and will contribute to future growth in revenues. The company should **invest more on clothings** for sport activities.
+    
+- **Customer retention strategies**
+  + Since **customer acquisition triples** in the  **second half** of 2013, the company can launch **seasonal marketing campaigns earlier** in the year (e.g. pre-summer promotions) to **spread out customer acquisition** across quarters.
+  + **Last months** of the year acquires **high number of new customers** but **average spending** is relatively **low**, the company can improve spending by running **time-limited offers around holiday periods**.
+  + It is found that **Jan-June** customers and **July-Dec** customers have **different repurchase pattern**. So the company should tailor follow-up communication by cohort:
+    + For **Jan–June** customers, schedule **reminders or offers** around the **2-month** mark.
+    + For **July–Dec** customers, consider **monthly loyalty perks** or **product recommendations** to **maintain their faster repurchase pace**.
+  + **Customers** acquired in the **first six months** have **higher average spendings**. **Demographic analysis, products purchased and acquisition channels** for this group can be conducted to **identify patterns**. These information will be used to **target similar potential customers**. 
