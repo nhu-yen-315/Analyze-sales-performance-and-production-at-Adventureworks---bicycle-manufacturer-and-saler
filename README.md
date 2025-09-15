@@ -1,4 +1,4 @@
-# Sales analysis in Adventure Works Cycles - a bicycle manufacturer with SQL
+# Sales analysis in a bicycle manufacturer - Adventure Works with SQL
 
 <img width="3000" height="2000" alt="image" src="https://github.com/user-attachments/assets/dcc2792e-c3f1-4dbe-b22d-1bea686cdced" />
 
